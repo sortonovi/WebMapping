@@ -6,30 +6,27 @@
     <title>Webcarto - Global ET0</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        /* Style de la carte */
         #map {
             width: 100%;
-            height: 100vh; /* Plein écran */
+            height: 100vh;
             margin: 0;
             padding: 0;
         }
 
-        /* Bandeau supérieur */
         #header-banner {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.9); /* Opacité légèrement augmentée */
+            background: rgba(0, 0, 0, 0.9);
             color: white;
             font-family: Arial, sans-serif;
             font-size: 18px;
             text-align: center;
-            padding: 15px 0; /* Rend le bandeau plus épais */
+            padding: 15px 0;
             z-index: 1000;
         }
 
-        /* Contrôles de lecture et affichage du mois */
         #controls {
             position: absolute;
             bottom: 100px;
@@ -57,21 +54,20 @@
             cursor: pointer;
         }
 
-        /* Légende horizontale */
         #legend {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.4); /* Blanc avec transparence 40% */
+            background: rgba(255, 255, 255, 0.4);
             padding: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             font-family: Arial, sans-serif;
-            font-size: 10px; /* Taille du texte */
+            font-size: 10px;
         }
 
         .legend-title {
@@ -98,7 +94,7 @@
             display: flex;
             justify-content: space-between;
             margin-top: 5px;
-            font-size: 10px; /* Taille ajustée */
+            font-size: 10px;
             color: #333;
             width: 80%;
         }
@@ -109,42 +105,38 @@
     </style>
 </head>
 <body>
-    <!-- Bandeau supérieur -->
     <div id="header-banner">Global ET0 (1970-2000)</div>
 
-    <!-- Conteneur pour la carte -->
     <div id="map"></div>
 
-    <!-- Contrôles d'animation -->
     <div id="controls">
         <div id="current-month">ET0 moyenné : Janvier</div>
         <button id="play-pause">▶ Lecture</button>
     </div>
 
-    <!-- Légende -->
     <div id="legend">
         <div class="legend-title">Global reference evapotranspiration (ET0), mm/month</div>
         <div class="legend-gradient">
-            <div class="legend-color" style="background: rgb(148, 0, 211);"></div> <!-- Violet -->
-            <div class="legend-color" style="background: rgb(75, 0, 130);"></div> <!-- Indigo -->
-            <div class="legend-color" style="background: rgb(0, 0, 139);"></div> <!-- Bleu sombre -->
-            <div class="legend-color" style="background: rgb(0, 0, 255);"></div> <!-- Bleu -->
-            <div class="legend-color" style="background: rgb(0, 128, 255);"></div> <!-- Bleu clair -->
-            <div class="legend-color" style="background: rgb(0, 255, 255);"></div> <!-- Turquoise -->
-            <div class="legend-color" style="background: rgb(0, 255, 0);"></div> <!-- Vert -->
-            <div class="legend-color" style="background: rgb(255, 255, 0);"></div> <!-- Jaune -->
-            <div class="legend-color" style="background: rgb(255, 165, 0);"></div> <!-- Orange -->
-            <div class="legend-color" style="background: rgb(255, 102, 102);"></div> <!-- Rouge clair pâle -->
-            <div class="legend-color" style="background: rgb(255, 51, 51);"></div> <!-- Rouge clair -->
-            <div class="legend-color" style="background: rgb(204, 51, 51);"></div> <!-- Rouge intermédiaire clair -->
-            <div class="legend-color" style="background: rgb(153, 0, 0);"></div> <!-- Rouge moyen -->
-            <div class="legend-color" style="background: rgb(102, 0, 0);"></div> <!-- Rouge sombre -->
-            <div class="legend-color" style="background: rgb(77, 0, 0);"></div> <!-- Rouge encore plus sombre -->
-            <div class="legend-color" style="background: rgb(102, 51, 0);"></div> <!-- Marron foncé -->
-            <div class="legend-color" style="background: rgb(128, 0, 128);"></div> <!-- Violet foncé -->
-            <div class="legend-color" style="background: rgb(186, 85, 211);"></div> <!-- Violet clair -->
-            <div class="legend-color" style="background: rgb(255, 105, 180);"></div> <!-- Magenta clair -->
-            <div class="legend-color" style="background: rgb(255, 20, 147);"></div> <!-- Magenta intense -->
+            <div class="legend-color" style="background: rgb(148, 0, 211);"></div>
+            <div class="legend-color" style="background: rgb(75, 0, 130);"></div>
+            <div class="legend-color" style="background: rgb(0, 0, 139);"></div>
+            <div class="legend-color" style="background: rgb(0, 0, 255);"></div>
+            <div class="legend-color" style="background: rgb(0, 128, 255);"></div>
+            <div class="legend-color" style="background: rgb(0, 255, 255);"></div>
+            <div class="legend-color" style="background: rgb(0, 255, 0);"></div>
+            <div class="legend-color" style="background: rgb(255, 255, 0);"></div>
+            <div class="legend-color" style="background: rgb(255, 165, 0);"></div>
+            <div class="legend-color" style="background: rgb(255, 102, 102);"></div>
+            <div class="legend-color" style="background: rgb(255, 51, 51);"></div>
+            <div class="legend-color" style="background: rgb(204, 51, 51);"></div>
+            <div class="legend-color" style="background: rgb(153, 0, 0);"></div>
+            <div class="legend-color" style="background: rgb(102, 0, 0);"></div>
+            <div class="legend-color" style="background: rgb(77, 0, 0);"></div>
+            <div class="legend-color" style="background: rgb(102, 51, 0);"></div>
+            <div class="legend-color" style="background: rgb(128, 0, 128);"></div>
+            <div class="legend-color" style="background: rgb(186, 85, 211);"></div>
+            <div class="legend-color" style="background: rgb(255, 105, 180);"></div>
+            <div class="legend-color" style="background: rgb(255, 20, 147);"></div>
         </div>
         <div class="legend-labels">
             <div>0</div>
@@ -168,7 +160,6 @@
         </div>
     </div>
 
-    <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const map = L.map('map', { maxZoom: 5, minZoom: 5 }).setView([20, 0], 5);
@@ -246,7 +237,6 @@
 
         playAnimation();
 
-        // Ajouter les contours des pays avec popup au clic
         fetch('tm_world_borders.geojson')
             .then(response => response.json())
             .then(data => {

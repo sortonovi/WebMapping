@@ -6,72 +6,194 @@
     <title>Webcarto - Global ET0</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
+        /* Style de la carte */
         #map {
             width: 100%;
-            height: 500px;
+            height: 100vh; /* Plein écran */
+            margin: 0;
+            padding: 0;
         }
+
+        /* Bandeau supérieur */
         #header-banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9); /* Opacité légèrement augmentée */
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
             text-align: center;
-            font-size: 24px;
-            margin-top: 10px;
+            padding: 15px 0; /* Rend le bandeau plus épais */
+            z-index: 1000;
         }
+
+        /* Contrôles de lecture et affichage du mois */
         #controls {
+            position: absolute;
+            bottom: 100px;
+            left: 11%;
+            transform: translateX(-50%);
+            z-index: 1000;
             text-align: center;
-            margin-top: 10px;
         }
+
+        #current-month {
+            margin-bottom: 5px;
+            color: white;
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 5px 10px;
+            display: inline-block;
+        }
+
+        #play-pause {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Légende horizontale */
         #legend {
             position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background-color: white;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.4); /* Blanc avec transparence 40% */
             padding: 10px;
-            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            font-size: 10px; /* Taille du texte */
+        }
+
+        .legend-title {
+            font-size: 12px;
+            color: #333;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .legend-gradient {
+            height: 20px;
+            width: 80%;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+        }
+
+        .legend-color {
+            height: 100%;
+            flex-grow: 1;
+        }
+
+        .legend-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 10px; /* Taille ajustée */
+            color: #333;
+            width: 80%;
+        }
+
+        .legend-labels div {
+            text-align: center;
         }
     </style>
 </head>
 <body>
+    <!-- Bandeau supérieur -->
     <div id="header-banner">Global ET0 (1970-2000)</div>
 
+    <!-- Conteneur pour la carte -->
     <div id="map"></div>
 
+    <!-- Contrôles d'animation -->
     <div id="controls">
         <div id="current-month">ET0 moyenné : Janvier</div>
         <button id="play-pause">▶ Lecture</button>
     </div>
 
+    <!-- Légende -->
     <div id="legend">
-        <!-- Légende pour les couches de température -->
+        <div class="legend-title">Global reference evapotranspiration (ET0), mm/month</div>
+        <div class="legend-gradient">
+            <div class="legend-color" style="background: rgb(148, 0, 211);"></div> <!-- Violet -->
+            <div class="legend-color" style="background: rgb(75, 0, 130);"></div> <!-- Indigo -->
+            <div class="legend-color" style="background: rgb(0, 0, 139);"></div> <!-- Bleu sombre -->
+            <div class="legend-color" style="background: rgb(0, 0, 255);"></div> <!-- Bleu -->
+            <div class="legend-color" style="background: rgb(0, 128, 255);"></div> <!-- Bleu clair -->
+            <div class="legend-color" style="background: rgb(0, 255, 255);"></div> <!-- Turquoise -->
+            <div class="legend-color" style="background: rgb(0, 255, 0);"></div> <!-- Vert -->
+            <div class="legend-color" style="background: rgb(255, 255, 0);"></div> <!-- Jaune -->
+            <div class="legend-color" style="background: rgb(255, 165, 0);"></div> <!-- Orange -->
+            <div class="legend-color" style="background: rgb(255, 102, 102);"></div> <!-- Rouge clair pâle -->
+            <div class="legend-color" style="background: rgb(255, 51, 51);"></div> <!-- Rouge clair -->
+            <div class="legend-color" style="background: rgb(204, 51, 51);"></div> <!-- Rouge intermédiaire clair -->
+            <div class="legend-color" style="background: rgb(153, 0, 0);"></div> <!-- Rouge moyen -->
+            <div class="legend-color" style="background: rgb(102, 0, 0);"></div> <!-- Rouge sombre -->
+            <div class="legend-color" style="background: rgb(77, 0, 0);"></div> <!-- Rouge encore plus sombre -->
+            <div class="legend-color" style="background: rgb(102, 51, 0);"></div> <!-- Marron foncé -->
+            <div class="legend-color" style="background: rgb(128, 0, 128);"></div> <!-- Violet foncé -->
+            <div class="legend-color" style="background: rgb(186, 85, 211);"></div> <!-- Violet clair -->
+            <div class="legend-color" style="background: rgb(255, 105, 180);"></div> <!-- Magenta clair -->
+            <div class="legend-color" style="background: rgb(255, 20, 147);"></div> <!-- Magenta intense -->
+        </div>
+        <div class="legend-labels">
+            <div>0</div>
+            <div>25</div>
+            <div>50</div>
+            <div>100</div>
+            <div>150</div>
+            <div>200</div>
+            <div>225</div>
+            <div>235</div>
+            <div>240</div>
+            <div>245</div>
+            <div>250</div>
+            <div>255</div>
+            <div>260</div>
+            <div>275</div>
+            <div>290</div>
+            <div>310</div>
+            <div>350</div>
+            <div>445</div>
+        </div>
     </div>
 
+    <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Initialisation de la carte
         const map = L.map('map', { maxZoom: 5, minZoom: 5 }).setView([20, 0], 5);
 
-        // Layer Google Satellite
         const googleSatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
             attribution: 'Map data ©2024 Google',
             maxZoom: 20
         }).addTo(map);
 
-        // Définition des couches pour chaque mois
         const layers = [
-            L.tileLayer('./global_et0_mapping/january_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('./global_et0_mapping/february_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('./global_et0_mapping/march_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('./global_et0_mapping/april_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('./global_et0_mapping/may_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('./global_et0_mapping/june_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('./global_et0_mapping/july_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('./global_et0_mapping/august_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('./global_et0_mapping/september_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('./global_et0_mapping/october_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('./global_et0_mapping/november_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('./global_et0_mapping/december_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 })
+            L.tileLayer('january_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('february_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('march_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('april_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('may_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('june_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('july_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('august_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('september_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('october_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('november_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('december_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 })
         ];
 
-        // Liste des mois
         const months = [
             "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
             "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
@@ -82,14 +204,12 @@
         const playPauseButton = document.getElementById('play-pause');
         const currentMonthLabel = document.getElementById('current-month');
 
-        // Ajout des couches et initialisation de l'opacité
         layers.forEach((layer, index) => {
             layer.addTo(map);
             if (index === 0) layer.setOpacity(1);
             else layer.setOpacity(0);
         });
 
-        // Fonction de transition entre les couches
         function transitionToNextLayer() {
             const currentLayer = layers[currentLayerIndex];
             const nextLayerIndex = (currentLayerIndex + 1) % layers.length;
@@ -109,13 +229,11 @@
             }, 35);
         }
 
-        // Fonction pour démarrer l'animation
         function playAnimation() {
             interval = setInterval(() => transitionToNextLayer(), 5000);
             playPauseButton.textContent = '❚❚ Pause';
         }
 
-        // Fonction pour mettre en pause l'animation
         function pauseAnimation() {
             clearInterval(interval);
             playPauseButton.textContent = '▶ Lecture';
@@ -126,27 +244,7 @@
             else playAnimation();
         });
 
-        // Démarrer l'animation
         playAnimation();
-
-        // Chargement du fichier GeoJSON pour les frontières des pays
-        fetch('./global_et0_mapping/tm_world_borders.geojson')
-            .then(response => response.json())
-            .then(data => {
-                L.geoJSON(data, {
-                    style: {
-                        color: '#000',
-                        weight: 1,
-                        fillOpacity: 0
-                    },
-                    onEachFeature: (feature, layer) => {
-                        if (feature.properties && feature.properties.name) {
-                            layer.bindPopup(`Pays : ${feature.properties.name}`);
-                        }
-                    }
-                }).addTo(map);
-            })
-            .catch(error => console.error('Erreur lors du chargement du GeoJSON :', error));
     </script>
 </body>
 </html>

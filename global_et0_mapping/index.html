@@ -6,7 +6,27 @@
     <title>Webcarto - Global ET0</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        /* ... ton code CSS ici ... */
+        #map {
+            width: 100%;
+            height: 500px;
+        }
+        #header-banner {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 10px;
+        }
+        #controls {
+            text-align: center;
+            margin-top: 10px;
+        }
+        #legend {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -20,34 +40,38 @@
     </div>
 
     <div id="legend">
-        <!-- ... ton code pour la légende ici ... -->
+        <!-- Légende pour les couches de température -->
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
+        // Initialisation de la carte
         const map = L.map('map', { maxZoom: 5, minZoom: 5 }).setView([20, 0], 5);
 
+        // Layer Google Satellite
         const googleSatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
             attribution: 'Map data ©2024 Google',
             maxZoom: 20
         }).addTo(map);
 
+        // Définition des couches pour chaque mois
         const layers = [
-            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/january_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/february_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/march_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/april_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/may_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/june_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/july_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/august_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/september_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/october_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/november_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/december_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 })
+            L.tileLayer('./global_et0_mapping/january_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('./global_et0_mapping/february_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('./global_et0_mapping/march_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('./global_et0_mapping/april_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('./global_et0_mapping/may_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('./global_et0_mapping/june_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('./global_et0_mapping/july_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('./global_et0_mapping/august_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('./global_et0_mapping/september_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('./global_et0_mapping/october_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('./global_et0_mapping/november_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('./global_et0_mapping/december_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 })
         ];
 
+        // Liste des mois
         const months = [
             "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
             "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
@@ -58,12 +82,14 @@
         const playPauseButton = document.getElementById('play-pause');
         const currentMonthLabel = document.getElementById('current-month');
 
+        // Ajout des couches et initialisation de l'opacité
         layers.forEach((layer, index) => {
             layer.addTo(map);
             if (index === 0) layer.setOpacity(1);
             else layer.setOpacity(0);
         });
 
+        // Fonction de transition entre les couches
         function transitionToNextLayer() {
             const currentLayer = layers[currentLayerIndex];
             const nextLayerIndex = (currentLayerIndex + 1) % layers.length;
@@ -83,11 +109,13 @@
             }, 35);
         }
 
+        // Fonction pour démarrer l'animation
         function playAnimation() {
             interval = setInterval(() => transitionToNextLayer(), 5000);
             playPauseButton.textContent = '❚❚ Pause';
         }
 
+        // Fonction pour mettre en pause l'animation
         function pauseAnimation() {
             clearInterval(interval);
             playPauseButton.textContent = '▶ Lecture';
@@ -98,9 +126,11 @@
             else playAnimation();
         });
 
+        // Démarrer l'animation
         playAnimation();
 
-        fetch('https://sortonovi.github.io/webmapping/global_et0_mapping/tm_world_borders.geojson')
+        // Chargement du fichier GeoJSON pour les frontières des pays
+        fetch('./global_et0_mapping/tm_world_borders.geojson')
             .then(response => response.json())
             .then(data => {
                 L.geoJSON(data, {

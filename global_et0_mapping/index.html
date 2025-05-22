@@ -171,18 +171,18 @@
         }).addTo(map);
 
         const layers = [
-            L.tileLayer('january_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('february_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('march_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('april_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('may_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('june_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('july_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('august_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('september_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('october_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('november_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('december_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 })
+            L.tileLayer('global_et0_mapping/january_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('global_et0_mapping/february_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('global_et0_mapping/march_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('global_et0_mapping/april_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('global_et0_mapping/may_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('global_et0_mapping/june_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('global_et0_mapping/july_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('global_et0_mapping/august_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('global_et0_mapping/september_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('global_et0_mapping/october_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('global_et0_mapping/november_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('global_et0_mapping/december_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 })
         ];
 
         const months = [
@@ -237,7 +237,7 @@
 
         playAnimation();
 
-        fetch('tm_world_borders.geojson')
+        fetch('global_et0_mapping/tm_world_borders.geojson')
             .then(response => response.json())
             .then(data => {
                 L.geoJSON(data, {

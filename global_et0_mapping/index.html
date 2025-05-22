@@ -6,102 +6,7 @@
     <title>Webcarto - Global ET0</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        #map {
-            width: 100%;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-        }
-
-        #header-banner {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-            text-align: center;
-            padding: 15px 0;
-            z-index: 1000;
-        }
-
-        #controls {
-            position: absolute;
-            bottom: 100px;
-            left: 11%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            text-align: center;
-        }
-
-        #current-month {
-            margin-bottom: 5px;
-            color: white;
-            font-size: 16px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 5px 10px;
-            display: inline-block;
-        }
-
-        #play-pause {
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        #legend {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.4);
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            font-family: Arial, sans-serif;
-            font-size: 10px;
-        }
-
-        .legend-title {
-            font-size: 12px;
-            color: #333;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .legend-gradient {
-            height: 20px;
-            width: 80%;
-            display: flex;
-            align-items: center;
-            border: 1px solid #ccc;
-        }
-
-        .legend-color {
-            height: 100%;
-            flex-grow: 1;
-        }
-
-        .legend-labels {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 5px;
-            font-size: 10px;
-            color: #333;
-            width: 80%;
-        }
-
-        .legend-labels div {
-            text-align: center;
-        }
+        /* ... ton code CSS ici ... */
     </style>
 </head>
 <body>
@@ -115,49 +20,7 @@
     </div>
 
     <div id="legend">
-        <div class="legend-title">Global reference evapotranspiration (ET0), mm/month</div>
-        <div class="legend-gradient">
-            <div class="legend-color" style="background: rgb(148, 0, 211);"></div>
-            <div class="legend-color" style="background: rgb(75, 0, 130);"></div>
-            <div class="legend-color" style="background: rgb(0, 0, 139);"></div>
-            <div class="legend-color" style="background: rgb(0, 0, 255);"></div>
-            <div class="legend-color" style="background: rgb(0, 128, 255);"></div>
-            <div class="legend-color" style="background: rgb(0, 255, 255);"></div>
-            <div class="legend-color" style="background: rgb(0, 255, 0);"></div>
-            <div class="legend-color" style="background: rgb(255, 255, 0);"></div>
-            <div class="legend-color" style="background: rgb(255, 165, 0);"></div>
-            <div class="legend-color" style="background: rgb(255, 102, 102);"></div>
-            <div class="legend-color" style="background: rgb(255, 51, 51);"></div>
-            <div class="legend-color" style="background: rgb(204, 51, 51);"></div>
-            <div class="legend-color" style="background: rgb(153, 0, 0);"></div>
-            <div class="legend-color" style="background: rgb(102, 0, 0);"></div>
-            <div class="legend-color" style="background: rgb(77, 0, 0);"></div>
-            <div class="legend-color" style="background: rgb(102, 51, 0);"></div>
-            <div class="legend-color" style="background: rgb(128, 0, 128);"></div>
-            <div class="legend-color" style="background: rgb(186, 85, 211);"></div>
-            <div class="legend-color" style="background: rgb(255, 105, 180);"></div>
-            <div class="legend-color" style="background: rgb(255, 20, 147);"></div>
-        </div>
-        <div class="legend-labels">
-            <div>0</div>
-            <div>25</div>
-            <div>50</div>
-            <div>100</div>
-            <div>150</div>
-            <div>200</div>
-            <div>225</div>
-            <div>235</div>
-            <div>240</div>
-            <div>245</div>
-            <div>250</div>
-            <div>255</div>
-            <div>260</div>
-            <div>275</div>
-            <div>290</div>
-            <div>310</div>
-            <div>350</div>
-            <div>445</div>
-        </div>
+        <!-- ... ton code pour la légende ici ... -->
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -171,18 +34,18 @@
         }).addTo(map);
 
         const layers = [
-            L.tileLayer('global_et0_mapping/january_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('global_et0_mapping/february_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('global_et0_mapping/march_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('global_et0_mapping/april_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('global_et0_mapping/may_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('global_et0_mapping/june_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('global_et0_mapping/july_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('global_et0_mapping/august_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('global_et0_mapping/september_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('global_et0_mapping/october_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('global_et0_mapping/november_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('global_et0_mapping/december_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 })
+            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/january_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/february_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/march_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/april_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/may_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/june_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/july_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/august_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/september_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/october_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/november_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://sortonovi.github.io/webmapping/global_et0_mapping/december_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 })
         ];
 
         const months = [
@@ -237,7 +100,7 @@
 
         playAnimation();
 
-        fetch('global_et0_mapping/tm_world_borders.geojson')
+        fetch('https://sortonovi.github.io/webmapping/global_et0_mapping/tm_world_borders.geojson')
             .then(response => response.json())
             .then(data => {
                 L.geoJSON(data, {

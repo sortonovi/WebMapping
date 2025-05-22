@@ -180,18 +180,18 @@
         }).addTo(map);
 
         const layers = [
-            L.tileLayer('january_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('february_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('march_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('april_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('may_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('june_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('july_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('august_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('september_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('october_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('november_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
-            L.tileLayer('december_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 })
+            L.tileLayer('https://raw.githubusercontent.com/sortonovi/global-et0-mapping/main/global_et0_mapping/datasets/january_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://raw.githubusercontent.com/sortonovi/global-et0-mapping/main/global_et0_mapping/datasets/february_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://raw.githubusercontent.com/sortonovi/global-et0-mapping/main/global_et0_mapping/datasets/march_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://raw.githubusercontent.com/sortonovi/global-et0-mapping/main/global_et0_mapping/datasets/april_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://raw.githubusercontent.com/sortonovi/global-et0-mapping/main/global_et0_mapping/datasets/may_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://raw.githubusercontent.com/sortonovi/global-et0-mapping/main/global_et0_mapping/datasets/june_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://raw.githubusercontent.com/sortonovi/global-et0-mapping/main/global_et0_mapping/datasets/july_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://raw.githubusercontent.com/sortonovi/global-et0-mapping/main/global_et0_mapping/datasets/august_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://raw.githubusercontent.com/sortonovi/global-et0-mapping/main/global_et0_mapping/datasets/september_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://raw.githubusercontent.com/sortonovi/global-et0-mapping/main/global_et0_mapping/datasets/october_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://raw.githubusercontent.com/sortonovi/global-et0-mapping/main/global_et0_mapping/datasets/november_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 }),
+            L.tileLayer('https://raw.githubusercontent.com/sortonovi/global-et0-mapping/main/global_et0_mapping/datasets/december_tiles/{z}/{x}/{y}.png', { tms: true, opacity: 0 })
         ];
 
         const months = [
@@ -247,7 +247,7 @@
         playAnimation();
 
         // Ajouter les contours des pays avec popup au clic
-        fetch('tm_world_borders.geojson')
+        fetch('https://raw.githubusercontent.com/sortonovi/global-et0-mapping/main/tm_world_borders.geojson')
             .then(response => response.json())
             .then(data => {
                 L.geoJSON(data, {

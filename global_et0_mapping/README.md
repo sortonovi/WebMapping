@@ -31,7 +31,7 @@ The datasets used: Zomer, Robert & Xu, Jianchu & Trabucco, Antonio. (2022). Vers
 
 ## Live Demo
 
-View the map here: (https://sortonovi.github.io/webmapping/global-et0-mapping/)
+View the map here: [(https://sortonovi.github.io/webmapping/global-et0-mapping/)]
 
 ## License
 
